@@ -1,0 +1,32 @@
+{
+  "name": "cursosesesp",
+  "private": true,
+  "scripts": {
+    "start": "meteor run"
+  },
+  "dependencies": {
+    "@angular/common": "^4.3.6",
+    "@angular/compiler": "^4.3.6",
+    "@angular/compiler-cli": "^4.3.6",
+    "@angular/core": "^4.3.6",
+    "@angular/forms": "^4.3.6",
+    "@angular/http": "^4.3.6",
+    "@angular/platform-browser": "^4.3.6",
+    "@angular/platform-browser-dynamic": "^4.3.6",
+    "@angular/platform-server": "^4.3.6",
+    "@angular/router": "^4.3.6",
+    "angular2-meteor-accounts-ui": "^1.0.0",
+    "babel-runtime": "^6.20.0",
+    "meteor-node-stubs": "~0.2.4",
+    "meteor-rxjs": "^0.4.7",
+    "ng2-toastr": "^4.1.2",
+    "reflect-metadata": "^0.1.10",
+    "rxjs": "^5.4.3",
+    "zone.js": "^0.8.17"
+  },
+  "devDependencies": {
+    "@types/meteor": "^1.4.5",
+    "@types/underscore": "^1.8.2",
+    "meteor-typings": "^1.4.1"
+  }
+}

@@ -1,0 +1,80 @@
+<div class="row">
+	<div class="col-sm-12">
+		<a (click)="nuevo()" class="btn btn-{{accionNuevo ? 'primary' : 'danger'}}" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+		  {{accionNuevo ? 'Nuevo' : 'Cancelar'}}
+		</a>
+		<div class="collapse" id="collapseExample">
+		  <div class="well">
+		    <form class="form-horizontal">
+				<div class="row">
+					<div class="col-sm-4">					
+						<label>Nombre</label>
+						<input type="text" [(ngModel)]="departamento.nombre" name="nombre" class="form-control">
+					</div>
+					<div class="col-sm-4">					
+						<label>Área</label>
+						<select name="area" [(ngModel)]="departamento.area" class="form-control">
+							<option value="CEI">Centro Estatal de Información</option>
+							<option value="Juridico">Jurídico</option>
+							<option value="Administracion">Administración</option>
+						</select>
+					</div>
+					<div class="col-sm-4">					
+						<label>Dirección</label>
+						<textarea rows="3" [(ngModel)]="departamento.direccion" name="direccion" class="form-control"></textarea>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<button class="btn btn-primary pull-right" (click)="guardar(departamento)" *ngIf="accionGuardar == true">
+							<i class="fa fa-floppy-o"></i> Guardar  
+						</button>
+						<button class="btn btn-primary pull-right" (click)="modificar(departamento)" *ngIf="accionGuardar == false">
+							<i class="fa fa-pencil"></i> Modificar 
+						</button>
+					</div>
+				</div>
+			</form>
+		  </div>
+		</div>
+		
+	</div>
+</div>
+<pre>{{departamento | json}}</pre>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center">No.</th>
+					<th class="text-center">Nombre</th>
+					<th class="text-center">Área</th>
+					<th class="text-center">Dirección</th>
+					<th class="text-center">Estatus</th>
+					<th class="text-center">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor='let depto of departamentos; let i = index;'>
+					<td class="text-center">{{i + 1}}</td>
+					<td><strong>{{depto.nombre}}</strong></td>
+					<td>{{depto.area}}</td>
+					<td>{{depto.direccion}}</td>
+					<td class="text-center">
+						<span class="label label-{{depto.estatus ? 'success' : 'warning'}}">
+							{{depto.estatus ? "Activo" : "Inactivo"}}
+						</span>
+					</td>
+					<td class="text-center">
+						<button class="btn btn-xs btn-primary" (click)="editar(depto)"><i class="fa fa-pencil"></i></button>
+						<button class="btn btn-xs btn-{{depto.estatus ? 'warning' : 'success'}}" 
+							(click)="cambiarEstatus(depto)">
+							<i class="fa fa-{{depto.estatus ? 'times' : 'check'}}"></i>
+						</button>
+						<button class="btn btn-xs btn-danger"><i class="fa fa-trash"></i></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>

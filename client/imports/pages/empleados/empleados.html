@@ -1,0 +1,141 @@
+<h2>Empleados</h2>
+<div class="row" [hidden]="!user">
+	<div class="col-sm-12">
+		<a (click)="nuevo()" class="btn btn-{{accionNuevo ? 'primary' : 'danger'}}" role="button" data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+		  {{accionNuevo ? 'Nuevo' : 'Cancelar'}}
+		</a>
+		<div class="collapse" id="collapseExample">
+		  <div class="well">
+		    <form class="form-horizontal">
+				<div class="row">
+					<div class="col-sm-4">					
+						<label>Nombre</label>
+						<input type="text" [(ngModel)]="empleado.nombre" name="nombre" class="form-control">
+					</div>
+					<div class="col-sm-4">
+						<label>Departamento</label><br/>
+						<select [(ngModel)]="empleado.departamento_id" style="width: 100%" name="departamento" class="form-control select">
+							<option [ngValue]="departamento._id" *ngFor="let departamento of departamentos">{{departamento.nombre}}</option>
+						</select>
+					</div>
+					<div class="col-sm-4">
+						<button class="btn btn-primary" (click)="tomarFoto()">
+							<i class="fa fa-camera"></i>
+						</button>
+						<img src="{{empleado.foto}}" class="img-thumbnail" *ngIf="empleado.foto" width="200">
+					</div>
+				</div
+				<div class="row">
+					<div class="col-sm-12">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>No.</th>
+									<th>Archivo</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let curso of empleado.cursos; let i = index">
+									<td>{{i + 1}}</td>
+									<td>{{curso.nombre}}</td>
+									<td>
+										<a href="{{curso.archivo}}" class="btn btn-primary btn-xs" *ngIf="curso.tipo == 'application/pdf'">
+											<i class="fa fa-download"></i> Descargar
+										</a>
+										<img src="{{curso.archivo}}" style="width: 100px" class="img-thumbnail" *ngIf="curso.tipo == 'image/jpeg'" 
+										(click)="mostrarImagen(curso)">
+									</td>
+									<td>
+										<button class="btn btn-xs btn-danger" (click)="quitar(i)">
+											<i class="fa fa-trash"></i>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-5">
+						<input name="nuevoCurso" [(ngModel)]="cursoActual.nombre" class="form-control">
+					</div>
+					<div class="col-sm-5">
+						<input type="file" id="archivo" name="archivo" class="form-control" [(ngModel)]="cursoActual.archivo">
+					</div>
+					<div class="col-sm-2">
+						<button class="btn btn-primary pull-right" (click)="agregar()">
+							<i class="fa fa-plus"></i>
+						</button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-sm-12">
+						<button class="btn btn-primary pull-right" (click)="guardar(empleado)" *ngIf="accionGuardar == true">
+							<i class="fa fa-floppy-o"></i> Guardar  
+						</button>
+						<button class="btn btn-primary pull-right" (click)="modificar(empleado)" *ngIf="accionGuardar == false">
+							<i class="fa fa-pencil"></i> Modificar 
+						</button>
+					</div>
+				</div>
+			</form>
+		  </div>
+		</div>
+		
+	</div>
+</div>
+<pre>{{empleado | json}}</pre>
+<div class="row">
+	<div class="col-sm-12">
+		<table class="table table-striped table-bordered">
+			<thead>
+				<tr>
+					<th class="text-center">No.</th>
+					<th class="text-center">Nombre</th>
+					<th class="text-center">Departamento</th>
+					<th class="text-center">Estatus</th>
+					<th class="text-center" [hidden]="!user">Acciones</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor='let empleado of empleados; let i = index;'>
+					<td class="text-center">{{i + 1}}</td>
+					<td><strong>{{empleado.nombre}}</strong></td>
+					<td>{{empleado.departamento ? empleado.departamento.nombre : ''}}</td>
+					<td class="text-center">
+						<span class="label label-{{empleado.estatus ? 'success' : 'warning'}}">
+							{{empleado.estatus ? "Activo" : "Inactivo"}}
+						</span>
+					</td>
+					<td class="text-center" [hidden]="!user">
+						<button class="btn btn-xs btn-primary" (click)="editar(empleado)"><i class="fa fa-pencil"></i></button>
+						<button class="btn btn-xs btn-{{empleado.estatus ? 'warning' : 'success'}}" 
+							(click)="cambiarEstatus(empleado)">
+							<i class="fa fa-{{empleado.estatus ? 'times' : 'check'}}"></i>
+						</button>
+						<button class="btn btn-xs btn-danger" (click)="eliminar(empleado)"><i class="fa fa-trash"></i></button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<!-- Este es el modal para mostrar la imagen en grande -->
+<div class="modal fade" id="visor" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">{{imagenSeleccionada.nombre ? imagenSeleccionada.nombre : ''}}</h4>
+      </div>
+      <div class="modal-body">
+        <img src="{{imagenSeleccionada.archivo}}" width="100%" class="img-thumbnail">
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
