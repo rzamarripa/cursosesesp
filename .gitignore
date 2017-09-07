@@ -1,2 +1,6 @@
 node_modules/
+<<<<<<< HEAD
 .rafael.md
+=======
+*.md
+>>>>>>> 49aa8d56d60d83b8f91063556f3a95ec1a72881e
