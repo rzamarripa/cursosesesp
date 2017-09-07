@@ -28,6 +28,8 @@
   "devDependencies": {
     "@angular/router": "^4.3.6",
     "@types/meteor": "^1.4.6",
+    "@types/meteor": "^1.4.6",
+    "@types/meteor-accounts-phone": "0.0.5",
     "@types/underscore": "^1.8.2",
     "meteor-typings": "^1.4.1"
   }
